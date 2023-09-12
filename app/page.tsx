@@ -1,95 +1,53 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    const [userHp, setUserHp] = useState<number>(100);
+    const [userDamage, setUserDamage] = useState<number>(0);
+
+    const [computerHp, setComputerHp] = useState<number>(100);
+    const [computerDamage, setComputerDamage] = useState<number>(0);
+
+    console.log(userHp);
+    console.log(computerHp);
+
+    const damageHandler = () => {
+        if (userHp <= 0 || computerHp <= 0) {
+            return null;
+        }
+        const computerDamageCount = Math.floor(Math.random() * 100) + 1;
+        setComputerDamage(computerDamageCount);
+        const remainingUserHp = Math.max(userHp - computerDamageCount, 0);
+        setUserHp(remainingUserHp);
+
+        const userDamageCount = Math.floor(Math.random() * 100) + 1;
+        setUserDamage(computerDamageCount);
+        const remainingComputerHp = Math.max(computerHp - userDamageCount, 0);
+        setComputerHp(remainingComputerHp);
+
+    };
+
+    return (
+        <div className="App">
+            <div className="player">
+                <label htmlFor="">
+                    <span>Head</span>
+                    <input type="radio" name="a" id="a_1" />
+                </label>
+                <label htmlFor="">
+                    <span>Chest</span>
+                    <input type="radio" name="a" id="a_2" />
+                </label>
+                <label htmlFor="">
+                    <span>Legs</span>
+                    <input type="radio" name="a" id="a_3" />
+                </label>
+                <button onClick={damageHandler}>Hit!</button>
+                <div>
+                    <div>user HP : {userHp}</div>
+                    <div>computer HP : {computerHp}</div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    );
 }
