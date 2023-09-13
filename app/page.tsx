@@ -3,29 +3,44 @@ import { useState } from "react";
 import styles from './page.module.css'
 
 export default function Home() {
-    const [userHp, setUserHp] = useState<number>(100);
+    const [userHp, setUserHp] = useState<number>(1000);
     const [userDamage, setUserDamage] = useState<number>(0);
+    const [userBlock, setUserBlock] = useState<string>('')
 
-    const [computerHp, setComputerHp] = useState<number>(100);
+    const [computerHp, setComputerHp] = useState<number>(1000);
     const [computerDamage, setComputerDamage] = useState<number>(0);
+    const [computerHitName, setComputerHitName] = useState<string>('');
 
-    console.log(userHp);
-    console.log(computerHp);
 
     const damageHandler = () => {
+        // User HP (remains)
         if (userHp <= 0 || computerHp <= 0) {
             return null;
         }
         const computerDamageCount = Math.floor(Math.random() * 100) + 1;
         setComputerDamage(computerDamageCount);
         const remainingUserHp = Math.max(userHp - computerDamageCount, 0);
-        setUserHp(remainingUserHp);
 
+        // Random computer hit name
+        const hitsList = ['head', 'chest', 'legs']
+        const randomHitIndex = Math.floor(Math.random() * hitsList.length)
+        const getRandomCompHit = hitsList[randomHitIndex]
+        setComputerHitName(getRandomCompHit)
+
+        // Computer HP (remains)
         const userDamageCount = Math.floor(Math.random() * 100) + 1;
         setUserDamage(computerDamageCount);
         const remainingComputerHp = Math.max(computerHp - userDamageCount, 0);
         setComputerHp(remainingComputerHp);
 
+        // Comp hit vs player block
+        if(userBlock === getRandomCompHit) {
+            alert('Blocked successfully!')
+        }
+        else setUserHp(remainingUserHp);
+
+        console.log('computerHitName', getRandomCompHit)
+        console.log('userBlock', userBlock)
     };
 
     return (
@@ -51,15 +66,15 @@ export default function Home() {
                        <h2>Блок</h2>
                        <label htmlFor="">
                            <span>Head</span>
-                           <input type="radio" name="block" id="block_1" />
+                           <input type="radio" name="block" id="block_1" onChange={() => setUserBlock('head')}/>
                        </label>
                        <label htmlFor="">
                            <span>Chest</span>
-                           <input type="radio" name="block" id="block_2" />
+                           <input type="radio" name="block" id="block_2" onChange={() => setUserBlock('chest')}/>
                        </label>
                        <label htmlFor="">
                            <span>Legs</span>
-                           <input type="radio" name="block" id="block_3" />
+                           <input type="radio" name="block" id="block_3" onChange={() => setUserBlock('legs')}/>
                        </label>
                    </div>
                </div>
