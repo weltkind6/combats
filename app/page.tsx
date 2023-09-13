@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import styles from './page.module.css'
 
 export default function Home() {
     const [userHp, setUserHp] = useState<number>(100);
@@ -28,20 +29,40 @@ export default function Home() {
     };
 
     return (
-        <div className="App">
-            <div className="player">
-                <label htmlFor="">
-                    <span>Head</span>
-                    <input type="radio" name="a" id="a_1" />
-                </label>
-                <label htmlFor="">
-                    <span>Chest</span>
-                    <input type="radio" name="a" id="a_2" />
-                </label>
-                <label htmlFor="">
-                    <span>Legs</span>
-                    <input type="radio" name="a" id="a_3" />
-                </label>
+        <div className={styles.wrapper} style={{marginLeft: '400px', fontSize: '22px'}}>
+            <div className={styles.player}>
+               <div className={styles.panel}>
+                   <div className={styles.hits}>
+                       <h2>Удар</h2>
+                       <label htmlFor="">
+                           <span>Head</span>
+                           <input type="radio" name="hit" id="hit_1" />
+                       </label>
+                       <label htmlFor="">
+                           <span>Chest</span>
+                           <input type="radio" name="hit" id="hit_2" />
+                       </label>
+                       <label htmlFor="">
+                           <span>Legs</span>
+                           <input type="radio" name="hit" id="hit_3" />
+                       </label>
+                   </div>
+                   <div className={styles.blocks}>
+                       <h2>Блок</h2>
+                       <label htmlFor="">
+                           <span>Head</span>
+                           <input type="radio" name="block" id="block_1" />
+                       </label>
+                       <label htmlFor="">
+                           <span>Chest</span>
+                           <input type="radio" name="block" id="block_2" />
+                       </label>
+                       <label htmlFor="">
+                           <span>Legs</span>
+                           <input type="radio" name="block" id="block_3" />
+                       </label>
+                   </div>
+               </div>
                 <button onClick={damageHandler}>Hit!</button>
                 <div>
                     <div>user HP : {userHp}</div>
