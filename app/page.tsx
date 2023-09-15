@@ -8,6 +8,7 @@ export default function Home() {
     const [userHitName, setUserHitName] = useState<string>('');
     const [userBlockName, setUserBlockName] = useState<string>('');
     const [isBlockChecked, setIsBlockChecked] = useState<boolean>(false);
+    console.log(isBlockChecked)
 
     const [computerHp, setComputerHp] = useState<number>(1000);
     const [computerDamage, setComputerDamage] = useState<number>(0);
@@ -103,6 +104,7 @@ export default function Home() {
                                 id="block_1"
                                 onChange={() => {
                                     setUserBlockName('head');
+                                    setIsBlockChecked(true);
                                 }}
                                 checked={userBlockName === 'head'}
                             />
@@ -115,6 +117,7 @@ export default function Home() {
                                 id="block_2"
                                 onChange={() => {
                                     setUserBlockName('chest');
+                                    setIsBlockChecked(true);
                                 }}
                                 checked={userBlockName === 'chest'}
                             />
