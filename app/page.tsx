@@ -3,20 +3,28 @@ import { useState } from "react";
 import styles from './page.module.css'
 
 export default function Home() {
+    // Пользователь
     const [userHp, setUserHp] = useState<number>(1000);
     const [userDamage, setUserDamage] = useState<number>(0);
     const [userHitName, setUserHitName] = useState<string>('');
     const [userBlockName, setUserBlockName] = useState<string>('');
     const [isBlockChecked, setIsBlockChecked] = useState<boolean>(false);
-    console.log(isBlockChecked)
+    const [isHitChecked, setIsHitChecked] = useState<boolean>(false);
 
+    // ИИ
     const [computerHp, setComputerHp] = useState<number>(1000);
     const [computerDamage, setComputerDamage] = useState<number>(0);
     const [computerHitName, setComputerHitName] = useState<string>('');
     const [computerBlock, setComputerBlock] = useState<string>('');
 
     const damageHandler = () => {
-        // User HP (remains)
+        // Проверка: выбран ли блок/удар
+        if (!isHitChecked || !isBlockChecked) {
+            console.log('Error');
+            return;
+        }
+
+        // Остаток ХП User
         if (userHp <= 0 || computerHp <= 0) {
             return null;
         }
@@ -24,7 +32,7 @@ export default function Home() {
         setComputerDamage(computerDamageCount);
         const remainingUserHp = Math.max(userHp - computerDamageCount, 0);
 
-        // Random computer hit + block name
+        //Имитарор ИИ. Удар компа и случайный блок
         const hitsList = ['head', 'chest', 'legs']
         const randomHitIndex = Math.floor(Math.random() * hitsList.length)
         const randomBlockIndex = Math.floor(Math.random() * hitsList.length)
@@ -33,25 +41,25 @@ export default function Home() {
         setComputerBlock(getRandomCompBlock)
         setComputerHitName(getRandomCompHit)
 
-        // Computer HP (remains)
+        // Остаток ХП ИИ
         const userDamageCount = Math.floor(Math.random() * 100) + 1;
         setUserDamage(computerDamageCount);
         const remainingComputerHp = Math.max(computerHp - userDamageCount, 0);
 
-        // Comp hit vs player block
+        // Проверка смог ли User заблокировать удар ИИ
         if (userBlockName === getRandomCompHit) {
             console.log('User blocked successfully!')
             return userHp
         } else setUserHp(remainingUserHp);
 
-        // User hit vs comp block
+        // Проверка смог ли ИИ заблокировать удар User
         if (computerBlock === userHitName) {
             console.log('Comp blocked successfully!')
             return computerHp
         }
         setComputerHp(remainingComputerHp);
 
-        // Reset checkboxes
+        // Очиска инпутов
         setUserHitName('');
         setUserBlockName('');
         setIsBlockChecked(false);
@@ -69,7 +77,10 @@ export default function Home() {
                                 type="radio"
                                 name="hit"
                                 id="hit_1"
-                                onChange={() => setUserHitName('head')}
+                                onChange={() => {
+                                    setUserHitName('head')
+                                    setIsHitChecked(true)
+                                }}
                                 checked={userHitName === 'head'}
                             />
                         </label>
@@ -79,7 +90,10 @@ export default function Home() {
                                 type="radio"
                                 name="hit"
                                 id="hit_2"
-                                onChange={() => setUserHitName('chest')}
+                                onChange={() => {
+                                    setUserHitName('chest')
+                                    setIsHitChecked(true)
+                                }}
                                 checked={userHitName === 'chest'}
                             />
                         </label>
@@ -89,7 +103,10 @@ export default function Home() {
                                 type="radio"
                                 name="hit"
                                 id="hit_3"
-                                onChange={() => setUserHitName('legs')}
+                                onChange={() => {
+                                    setUserHitName('legs')
+                                    setIsHitChecked(true)
+                                }}
                                 checked={userHitName === 'legs'}
                             />
                         </label>
