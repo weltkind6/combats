@@ -18,7 +18,9 @@ export default function Home() {
     const [computerHp, setComputerHp] = useState<number>(1000);
     const [computerDamage, setComputerDamage] = useState<number>(0);
     const [computerHitName, setComputerHitName] = useState<string>('');
-    const [computerBlock, setComputerBlock] = useState<string>('');
+    const [computerBlockName, setComputerBlockName] = useState<string>('');
+    const [successCompBlock, setSuccessCompBlock] = useState(false)
+    const [successCompBlockText, setSuccessCompBlockText] = useState('')
 
     const damageHandler = () => {
         // Рендер ударов и блоков (лог боя)
@@ -43,7 +45,7 @@ export default function Home() {
         const randomBlockIndex = Math.floor(Math.random() * hitsList.length)
         const getRandomCompHit = hitsList[randomHitIndex]
         const getRandomCompBlock = hitsList[randomBlockIndex]
-        setComputerBlock(getRandomCompBlock)
+        setComputerBlockName(getRandomCompBlock)
         setComputerHitName(getRandomCompHit)
 
         // Остаток ХП ИИ
@@ -56,6 +58,9 @@ export default function Home() {
             console.log('User blocked successfully!')
             setSuccessUserBlockText(`Комп пытался провести удар но наглый User заблокировал удар в ${userBlockName}`)
             setSuccessUserBlock(true)
+            setUserHitName('');
+            setUserBlockName('');
+            setIsBlockChecked(false);
             return userHp
         } else {
             setSuccessUserBlock(false)
@@ -63,8 +68,13 @@ export default function Home() {
         };
 
         // Проверка смог ли ИИ заблокировать удар User
-        if (computerBlock === userHitName) {
+        if (computerBlockName === userHitName) {
             console.log('Comp blocked successfully!')
+            setSuccessCompBlockText(`User пытался провести удар но наглый Comp заблокировал удар в ${computerBlockName}`)
+            setSuccessCompBlock(true)
+            setUserHitName('');
+            setUserBlockName('');
+            setIsBlockChecked(false);
             return computerHp
         }
         setComputerHp(remainingComputerHp);
@@ -176,7 +186,11 @@ export default function Home() {
                     <div>Комп влепил удар в <strong>{computerHitName}</strong>
                     </div>
                 }
-                <div>Юзер влепил удар в <strong>{hitToRender}</strong></div>
+                {successCompBlock ?
+                    <div>{successCompBlockText}</div> :
+                    <div>User влепил удар в <strong>{computerHitName}</strong>
+                    </div>
+                }
 
             </div>
         </div>
