@@ -10,6 +10,9 @@ export default function Home() {
     const [userBlockName, setUserBlockName] = useState<string>('');
     const [isBlockChecked, setIsBlockChecked] = useState<boolean>(false);
     const [isHitChecked, setIsHitChecked] = useState<boolean>(false);
+    const [hitToRender, setHitToRender] = useState('')
+    const [successUserBlock, setSuccessUserBlock] = useState(false)
+    const [successUserBlockText, setSuccessUserBlockText] = useState('')
 
     // ИИ
     const [computerHp, setComputerHp] = useState<number>(1000);
@@ -18,6 +21,8 @@ export default function Home() {
     const [computerBlock, setComputerBlock] = useState<string>('');
 
     const damageHandler = () => {
+        // Рендер ударов и блоков (лог боя)
+        setHitToRender(userHitName)
         // Проверка: выбран ли блок/удар
         if (!isHitChecked || !isBlockChecked) {
             console.log('Error');
@@ -49,8 +54,13 @@ export default function Home() {
         // Проверка смог ли User заблокировать удар ИИ
         if (userBlockName === getRandomCompHit) {
             console.log('User blocked successfully!')
+            setSuccessUserBlockText(`Комп пытался провести удар но наглый User заблокировал удар в ${userBlockName}`)
+            setSuccessUserBlock(true)
             return userHp
-        } else setUserHp(remainingUserHp);
+        } else {
+            setSuccessUserBlock(false)
+            setUserHp(remainingUserHp)
+        };
 
         // Проверка смог ли ИИ заблокировать удар User
         if (computerBlock === userHitName) {
@@ -159,6 +169,15 @@ export default function Home() {
                     <div>user HP : {userHp}</div>
                     <div>computer HP : {computerHp}</div>
                 </div>
+            </div>
+            <div className={styles.fightLog}>
+                {successUserBlock ?
+                    <div>{successUserBlockText}</div> :
+                    <div>Комп влепил удар в <strong>{computerHitName}</strong>
+                    </div>
+                }
+                <div>Юзер влепил удар в <strong>{hitToRender}</strong></div>
+
             </div>
         </div>
     );
