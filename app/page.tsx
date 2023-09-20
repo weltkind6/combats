@@ -2,24 +2,28 @@
 import { useState } from "react";
 import styles from './page.module.css'
 
+
 export default function Home() {
     // Пользователь
     const [userHp, setUserHp] = useState<number>(1000);
+    const [currUserHp, setCurrUserHp] = useState<number>(1000);
     const [userDamage, setUserDamage] = useState<number>(0);
     const [userHitName, setUserHitName] = useState<string>('');
+    const [hitToRender, setHitToRender] = useState('')
     const [userBlockName, setUserBlockName] = useState<string>('');
     const [isBlockChecked, setIsBlockChecked] = useState<boolean>(false);
     const [isHitChecked, setIsHitChecked] = useState<boolean>(false);
-    const [hitToRender, setHitToRender] = useState('')
     const [successUserBlock, setSuccessUserBlock] = useState(false)
     const [successUserBlockText, setSuccessUserBlockText] = useState('')
 
     // ИИ
     const [computerHp, setComputerHp] = useState<number>(1000);
+    const [currComputerHp, setCurrComputerHp] = useState<number>(1000);
     const [computerDamage, setComputerDamage] = useState<number>(0);
     const [computerHitName, setComputerHitName] = useState<string>('');
     const [computerBlockName, setComputerBlockName] = useState<string>('');
     const [successCompBlock, setSuccessCompBlock] = useState(false)
+    console.log('successCompBlock', successCompBlock)
     const [successCompBlockText, setSuccessCompBlockText] = useState('')
 
     const damageHandler = () => {
@@ -32,12 +36,12 @@ export default function Home() {
         }
 
         // Остаток ХП User
-        if (userHp <= 0 || computerHp <= 0) {
+        if (currUserHp <= 0 || currComputerHp <= 0) {
             return null;
         }
         const computerDamageCount = Math.floor(Math.random() * 100) + 1;
         setComputerDamage(computerDamageCount);
-        const remainingUserHp = Math.max(userHp - computerDamageCount, 0);
+        const remainingUserHp = Math.max(currUserHp - computerDamageCount, 0);
 
         //Имитарор ИИ. Удар компа и случайный блок
         const hitsList = ['head', 'chest', 'legs']
@@ -50,8 +54,8 @@ export default function Home() {
 
         // Остаток ХП ИИ
         const userDamageCount = Math.floor(Math.random() * 100) + 1;
-        setUserDamage(computerDamageCount);
-        const remainingComputerHp = Math.max(computerHp - userDamageCount, 0);
+        setUserDamage(userDamageCount);
+        const remainingComputerHp = Math.max(currComputerHp - userDamageCount, 0);
 
         // Проверка смог ли User заблокировать удар ИИ
         if (userBlockName === getRandomCompHit) {
@@ -61,10 +65,10 @@ export default function Home() {
             setUserHitName('');
             setUserBlockName('');
             setIsBlockChecked(false);
-            return userHp
+            return currUserHp
         } else {
             setSuccessUserBlock(false)
-            setUserHp(remainingUserHp)
+            setCurrUserHp(remainingUserHp)
         };
 
         // Проверка смог ли ИИ заблокировать удар User
@@ -75,9 +79,11 @@ export default function Home() {
             setUserHitName('');
             setUserBlockName('');
             setIsBlockChecked(false);
-            return computerHp
-        }
-        setComputerHp(remainingComputerHp);
+            return currComputerHp
+        } else {
+            setSuccessCompBlock(false)
+            setCurrComputerHp(remainingComputerHp)
+        };
 
         // Очиска инпутов
         setUserHitName('');
@@ -176,19 +182,27 @@ export default function Home() {
                 </div>
                 <button onClick={damageHandler}>Hit!</button>
                 <div>
-                    <div>user HP : {userHp}</div>
-                    <div>computer HP : {computerHp}</div>
+                    <div>user HP : {currUserHp}</div>
+                    <div>computer HP : {currComputerHp}</div>
                 </div>
             </div>
             <div className={styles.fightLog}>
                 {successUserBlock ?
                     <div>{successUserBlockText}</div> :
-                    <div>Комп влепил удар в <strong>{computerHitName}</strong>
+                    <div>User пытался что-то сказать, но в это время Комп влепил мощнейший удар в &nbsp;
+                        <strong>
+                            {computerHitName} {!successUserBlock && <span>-</span>}
+                            {computerDamage} <span>{`[${currUserHp}/${userHp}]`}</span>
+                        </strong>
                     </div>
                 }
                 {successCompBlock ?
                     <div>{successCompBlockText}</div> :
-                    <div>User влепил удар в <strong>{computerHitName}</strong>
+                    <div>Comp засмотрелся и в это время небритый User влепил удар в &nbsp;
+                        <strong>
+                            {hitToRender} {!successCompBlock && <span>-</span>}
+                            {userDamage} <span>{`[${currComputerHp}/${computerHp}]`}</span>
+                        </strong>
                     </div>
                 }
 
