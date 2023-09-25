@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import {useCallback, useState} from "react";
 import styles from './page.module.css'
 
 
@@ -26,12 +26,13 @@ export default function Home() {
     console.log('successCompBlock', successCompBlock)
     const [successCompBlockText, setSuccessCompBlockText] = useState('')
 
-    const damageHandler = () => {
+    const damageHandler = useCallback(() => {
         // Рендер ударов и блоков (лог боя)
         setHitToRender(userHitName)
         // Проверка: выбран ли блок/удар
         if (!isHitChecked || !isBlockChecked) {
             console.log('Error');
+            alert('Блок или удар не выбран!')
             return;
         }
 
@@ -43,7 +44,7 @@ export default function Home() {
         setComputerDamage(computerDamageCount);
         const remainingUserHp = Math.max(currUserHp - computerDamageCount, 0);
 
-        //Имитарор ИИ. Удар компа и случайный блок
+        //Имитатор ИИ. Удар компа и случайный блок
         const hitsList = ['head', 'chest', 'legs']
         const randomHitIndex = Math.floor(Math.random() * hitsList.length)
         const randomBlockIndex = Math.floor(Math.random() * hitsList.length)
@@ -85,11 +86,11 @@ export default function Home() {
             setCurrComputerHp(remainingComputerHp)
         };
 
-        // Очиска инпутов
+        // Очистка инпутов
         setUserHitName('');
         setUserBlockName('');
         setIsBlockChecked(false);
-    };
+    }, [currUserHp, currComputerHp, isHitChecked, isBlockChecked, userBlockName, userHitName])
 
     return (
         <div className={styles.wrapper} style={{ marginLeft: '400px', fontSize: '22px' }}>
