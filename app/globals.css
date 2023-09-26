@@ -1,0 +1,18 @@
+/* globals.css */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Дополнительные глобальные стили */
+
+/* Например, установка шрифта для всего приложения */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Дополнительные стили для конкретных элементов */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}

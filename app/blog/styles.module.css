@@ -1,5 +1,12 @@
 .panel {
     display: flex;
+    outline: 1px solid;
+    background: tan;
+    width: 600px;
+}
+
+.topPanel {
+    display: flex;
 }
 
 .hits, .blocks {
@@ -16,4 +23,8 @@
     width: 600px;
     height: 200px;
     outline: 1px solid #000;
+}
+
+.playerBlock {
+    outline: 1px solid;
 }

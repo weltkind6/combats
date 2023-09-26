@@ -5,7 +5,9 @@ import Link from "next/link";
 const MainScreen = () => {
     return (
         <div className={styles.wrapper}>
-            <span><Link href={{pathname: "/blog"}}>Начать бой!</Link></span>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                <Link href={{pathname: "/blog"}}>Начать бой!</Link>
+            </button>
         </div>
     );
 };
