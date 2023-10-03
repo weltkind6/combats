@@ -2,6 +2,8 @@
 import {useCallback, useState} from "react";
 import styles from './styles.module.css'
 import dynamic from "next/dynamic";
+import {Button, Progress} from "reactstrap";
+import {barColorHandler} from "@/app/helpers/heplres";
 
 const DynamicClock = dynamic(() => import("../components/Time/Time"), {
     ssr: false,
@@ -101,12 +103,28 @@ const FifthPage = () => {
             setIsBlockChecked(false);
 
         },
-        [currUserHp, currComputerHp, isHitChecked, isBlockChecked, userBlockName, userHitName])
+        [
+            currUserHp,
+            currComputerHp,
+            isHitChecked,
+            isBlockChecked,
+            userBlockName,
+            userHitName,
+            computerBlockName
+        ])
 
     return (
-        <div>
+        <div className={styles.wrapper}>
             <div className={styles.container}>
                 <div className={styles.playerBlock}>
+                    <strong>{currUserHp}</strong>
+                    <Progress
+                        min="0"
+                        max="1000"
+                        className="my-3"
+                        color={barColorHandler(currUserHp)}
+                        value={currUserHp.toString()}
+                    />
                     <div>Name: Player</div>
                     <div>Hp bar: Player</div>
                     <div>Image: Player</div>
@@ -205,11 +223,26 @@ const FifthPage = () => {
                     {/*</div>*/}
                 </div>
                 <div className={styles.computerBlock}>
+                    <strong>{currComputerHp}</strong>
+                    <Progress
+                        min="0"
+                        max="1000"
+                        className="my-3"
+                        color={barColorHandler(currComputerHp)}
+                        value={currComputerHp.toString()}
+                    />
                     <div>Name: Computer</div>
                     <div>Hp bar: Computer</div>
                     <div>Image: Computer</div>
                 </div>
             </div>
+
+            <Button
+                color="warning"
+                outline
+            >
+                warning
+            </Button>
 
             {isFightStarted && (
                 <div className={styles.fightLog}>

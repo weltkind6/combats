@@ -1,3 +1,8 @@
+.container {
+    display: flex;
+    margin-left: 350px;
+}
+
 .panel {
     display: flex;
     outline: 1px solid;
@@ -26,5 +31,11 @@
 }
 
 .playerBlock {
+    outline: 1px solid;
+    width: 450px;
+}
+
+.computerBlock {
+    width: 450px;
     outline: 1px solid;
 }
