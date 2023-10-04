@@ -4,6 +4,9 @@ import styles from './styles.module.css'
 import dynamic from "next/dynamic";
 import {Button, Progress} from "reactstrap";
 import {barColorHandler} from "@/app/helpers/heplres";
+import Image from "next/image";
+import playerImg from '../../public/img/imageBK1.jpeg'
+import computerImg from '../../public/img/imageBK2.jpeg'
 
 const DynamicClock = dynamic(() => import("../components/Time/Time"), {
     ssr: false,
@@ -125,6 +128,7 @@ const FifthPage = () => {
                         color={barColorHandler(currUserHp)}
                         value={currUserHp.toString()}
                     />
+                    <Image src={playerImg} alt="player" />
                     <div>Name: Player</div>
                     <div>Hp bar: Player</div>
                     <div>Image: Player</div>
@@ -231,6 +235,7 @@ const FifthPage = () => {
                         color={barColorHandler(currComputerHp)}
                         value={currComputerHp.toString()}
                     />
+                    <Image src={computerImg} alt="computerImg" />
                     <div>Name: Computer</div>
                     <div>Hp bar: Computer</div>
                     <div>Image: Computer</div>
