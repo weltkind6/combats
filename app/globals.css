@@ -8,10 +8,15 @@
 /* Например, установка шрифта для всего приложения */
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #dedede !important;
 }
 
 /* Дополнительные стили для конкретных элементов */
 .container {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.inter {
+    background-color: #dedede;
 }
