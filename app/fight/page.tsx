@@ -2,7 +2,7 @@
 import {useCallback, useState} from "react";
 import styles from './styles.module.css'
 import dynamic from "next/dynamic";
-import {Button, Progress} from "reactstrap";
+import {Button, FormGroup, Input, Label, Progress} from "reactstrap";
 import {barColorHandler} from "@/app/helpers/heplres";
 import Image from "next/image";
 import playerImg from '../../public/img/imageBK1.jpeg'
@@ -11,7 +11,7 @@ import computerImg from '../../public/img/imageBK2.jpeg'
 const DynamicClock = dynamic(() => import("../components/Time/Time"), {
     ssr: false,
 });
-const FifthPage = () => {
+const FightPage = () => {
 
     // Пользователь
     const [userHp, setUserHp] = useState<number>(1000);
@@ -120,18 +120,22 @@ const FifthPage = () => {
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <div className={styles.playerBlock}>
-                    <strong>{currUserHp}</strong>
+                    <div>Name: Player</div>
                     <Progress
                         min="0"
                         max="1000"
                         className="my-3"
                         color={barColorHandler(currUserHp)}
                         value={currUserHp.toString()}
+                    >
+                        {currUserHp}
+                    </Progress>
+                    <Image
+                        src={playerImg}
+                        alt="player"
+                        width="150"
+                        className={styles.usersAvatar}
                     />
-                    <Image src={playerImg} alt="player" />
-                    <div>Name: Player</div>
-                    <div>Hp bar: Player</div>
-                    <div>Image: Player</div>
                 </div>
                 <div className={styles.player}>
                     <div className={styles.panel}>
@@ -139,20 +143,20 @@ const FifthPage = () => {
                             <h2>Удар</h2>
                             <label htmlFor="">
                                 <span>Head</span>
-                                <input
+                                <Input
                                     type="radio"
                                     name="hit"
                                     id="hit_1"
                                     onChange={() => {
-                                        setUserHitName('head')
-                                        setIsHitChecked(true)
-                                    }}
-                                    checked={userHitName === 'head'}
+                                    setUserHitName('head')
+                                    setIsHitChecked(true)
+                                }}
+                                       checked={userHitName === 'head'}
                                 />
                             </label>
                             <label htmlFor="">
                                 <span>Chest</span>
-                                <input
+                                <Input
                                     type="radio"
                                     name="hit"
                                     id="hit_2"
@@ -165,7 +169,7 @@ const FifthPage = () => {
                             </label>
                             <label htmlFor="">
                                 <span>Legs</span>
-                                <input
+                                <Input
                                     type="radio"
                                     name="hit"
                                     id="hit_3"
@@ -181,7 +185,7 @@ const FifthPage = () => {
                             <h2>Блок</h2>
                             <label htmlFor="">
                                 <span>Head</span>
-                                <input
+                                <Input
                                     type="radio"
                                     name="block"
                                     id="block_1"
@@ -194,7 +198,7 @@ const FifthPage = () => {
                             </label>
                             <label htmlFor="">
                                 <span>Chest</span>
-                                <input
+                                <Input
                                     type="radio"
                                     name="block"
                                     id="block_2"
@@ -207,7 +211,7 @@ const FifthPage = () => {
                             </label>
                             <label htmlFor="">
                                 <span>Legs</span>
-                                <input
+                                <Input
                                     type="radio"
                                     name="block"
                                     id="block_3"
@@ -227,18 +231,22 @@ const FifthPage = () => {
                     {/*</div>*/}
                 </div>
                 <div className={styles.computerBlock}>
-                    <strong>{currComputerHp}</strong>
+                    <div>Name: Computer</div>
                     <Progress
                         min="0"
                         max="1000"
                         className="my-3"
                         color={barColorHandler(currComputerHp)}
                         value={currComputerHp.toString()}
+                    >
+                        {currComputerHp}
+                    </Progress>
+                    <Image
+                        src={computerImg}
+                        alt="computerImg"
+                        width="150"
+                        className={styles.computerAvatar}
                     />
-                    <Image src={computerImg} alt="computerImg" />
-                    <div>Name: Computer</div>
-                    <div>Hp bar: Computer</div>
-                    <div>Image: Computer</div>
                 </div>
             </div>
 
@@ -277,4 +285,4 @@ const FifthPage = () => {
     );
 };
 
-export default FifthPage;
+export default FightPage;

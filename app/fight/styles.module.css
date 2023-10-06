@@ -35,6 +35,11 @@
     width: 450px;
 }
 
+.usersAvatar,
+.computerAvatar {
+    margin: 0 auto;
+}
+
 .computerBlock {
     width: 450px;
     outline: 1px solid;
