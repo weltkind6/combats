@@ -3,7 +3,7 @@ import {useCallback, useState} from "react";
 import styles from './styles.module.css'
 import dynamic from "next/dynamic";
 import {Button, FormGroup, Input, Label, Progress} from "reactstrap";
-import {barColorHandler} from "@/app/helpers/heplres";
+import {barColorHandler, getRandomBlockOrHit} from "@/app/helpers/heplres";
 import Image from "next/image";
 import playerImg from '../../public/img/imageBK1.jpeg'
 import computerImg from '../../public/img/imageBK2.jpeg'
@@ -41,7 +41,6 @@ const FightPage = () => {
             setHitToRender(userHitName)
             // Проверка: выбран ли блок/удар
             if (!isHitChecked || !isBlockChecked) {
-                console.log('Error');
                 alert('Блок или удар не выбран!')
                 return;
             }
@@ -59,11 +58,8 @@ const FightPage = () => {
             const remainingUserHp = Math.max(currUserHp - computerDamageCount, 0);
 
             //Имитатор ИИ. Удар компа и случайный блок
-            const hitsList = ['head', 'chest', 'legs']
-            const randomHitIndex = Math.floor(Math.random() * hitsList.length)
-            const randomBlockIndex = Math.floor(Math.random() * hitsList.length)
-            const getRandomCompHit = hitsList[randomHitIndex]
-            const getRandomCompBlock = hitsList[randomBlockIndex]
+            const getRandomCompHit = getRandomBlockOrHit()
+            const getRandomCompBlock = getRandomBlockOrHit()
             setComputerBlockName(getRandomCompBlock)
             setComputerHitName(getRandomCompHit)
 
@@ -225,10 +221,6 @@ const FightPage = () => {
                         </div>
                         <button onClick={damageHandler}>Hit!</button>
                     </div>
-                    {/*<div>*/}
-                    {/*    <div>user HP : {currUserHp}</div>*/}
-                    {/*    <div>computer HP : {currComputerHp}</div>*/}
-                    {/*</div>*/}
                 </div>
                 <div className={styles.computerBlock}>
                     <div>Name: Computer</div>
