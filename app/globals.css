@@ -1,8 +1,15 @@
-/* globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200&family=Rubik&display=swap'); /* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+    font-family: 'Rubik';
+    src: url('./fonts/Rubik-Italic-VariableFont_wght.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
 /* Дополнительные глобальные стили */
 
 /* Например, установка шрифта для всего приложения */

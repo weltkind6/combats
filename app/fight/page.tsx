@@ -3,7 +3,7 @@ import {useCallback, useState} from "react";
 import styles from './styles.module.css'
 import dynamic from "next/dynamic";
 import {Alert, Button, Input, Progress} from "reactstrap";
-import {barColorHandler, generateRandomBlockOrHit} from "@/app/helpers/heplres";
+import {barColorHandler, generateRandomBlockOrHit, getCurrentTime} from "@/app/helpers/heplres";
 import Image from "next/image";
 import playerImg from '../../public/img/imageBK1.jpeg'
 import computerImg from '../../public/img/imageBK2.jpeg'
@@ -45,7 +45,7 @@ const FightPage = () => {
                 return;
             }
             // Начало боя
-            if(isHitChecked && isBlockChecked) {
+            if (isHitChecked && isBlockChecked) {
                 setIsFightStarted(true)
             }
 
@@ -80,7 +80,8 @@ const FightPage = () => {
             } else {
                 setSuccessUserBlock(false)
                 setCurrUserHp(remainingUserHp)
-            };
+            }
+            ;
 
             // Проверка смог ли ИИ заблокировать удар User
             if (computerBlockName === userHitName) {
@@ -94,7 +95,8 @@ const FightPage = () => {
             } else {
                 setSuccessCompBlock(false)
                 setCurrComputerHp(remainingComputerHp)
-            };
+            }
+            ;
 
             // Очистка инпутов
             setUserHitName('');
@@ -115,7 +117,7 @@ const FightPage = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <div className={styles.playerBlock}>
+                <Alert color="secondary" className={styles.playerBlock}>
                     <div>Name: Player</div>
                     <Progress
                         min="0"
@@ -132,105 +134,105 @@ const FightPage = () => {
                         width="150"
                         className={styles.usersAvatar}
                     />
-                </div>
-                <Alert color="secondary" className={styles.fightPanel}>
-                        <div className={styles.panel}>
-                            <div className={styles.hits}>
-                                <h2>Удар</h2>
-                                <div className={styles.hitsWrapper}>
-                                    <label htmlFor="" className={styles.labelWrapper}>
-                                        <span>Head</span>
-                                        <Input
-                                            type="radio"
-                                            name="hit"
-                                            id="hit_1"
-                                            onChange={() => {
-                                                setUserHitName('head')
-                                                setIsHitChecked(true)
-                                            }}
-                                            checked={userHitName === 'head'}
-                                        />
-                                    </label>
-                                    <label htmlFor="" className={styles.labelWrapper}>
-                                        <span>Chest</span>
-                                        <Input
-                                            type="radio"
-                                            name="hit"
-                                            id="hit_2"
-                                            onChange={() => {
-                                                setUserHitName('chest')
-                                                setIsHitChecked(true)
-                                            }}
-                                            checked={userHitName === 'chest'}
-                                        />
-                                    </label>
-                                    <label htmlFor="" className={styles.labelWrapper}>
-                                        <span>Legs</span>
-                                        <Input
-                                            type="radio"
-                                            name="hit"
-                                            id="hit_3"
-                                            onChange={() => {
-                                                setUserHitName('legs')
-                                                setIsHitChecked(true)
-                                            }}
-                                            checked={userHitName === 'legs'}
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-                            <div className={styles.blocks}>
-                                <h2>Блок</h2>
-                                <div className={styles.blocksWrapper}>
-                                    <label htmlFor="" className={styles.labelWrapper}>
-                                        <span>Head</span>
-                                        <Input
-                                            type="radio"
-                                            name="block"
-                                            id="block_1"
-                                            onChange={() => {
-                                                setUserBlockName('head');
-                                                setIsBlockChecked(true);
-                                            }}
-                                            checked={userBlockName === 'head'}
-                                        />
-                                    </label>
-                                    <label htmlFor="" className={styles.labelWrapper}>
-                                        <span>Chest</span>
-                                        <Input
-                                            type="radio"
-                                            name="block"
-                                            id="block_2"
-                                            onChange={() => {
-                                                setUserBlockName('chest');
-                                                setIsBlockChecked(true);
-                                            }}
-                                            checked={userBlockName === 'chest'}
-                                        />
-                                    </label>
-                                    <label htmlFor="" className={styles.labelWrapper}>
-                                        <span>Legs</span>
-                                        <Input
-                                            type="radio"
-                                            name="block"
-                                            id="block_3"
-                                            onChange={() => {
-                                                setUserBlockName('legs');
-                                                setIsBlockChecked(true);
-                                            }}
-                                            checked={userBlockName === 'legs' && isBlockChecked}
-                                        />
-                                    </label >
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.btnWrapper}>
-                            <Button color="warning" onClick={damageHandler}>
-                                Вперед!
-                            </Button>
-                        </div>
                 </Alert>
-                <div className={styles.computerBlock}>
+                <Alert color="secondary" className={styles.fightPanel}>
+                    <div className={styles.panel}>
+                        <div className={styles.hits}>
+                            <h2>Удар</h2>
+                            <div className={styles.hitsWrapper}>
+                                <label htmlFor="" className={styles.labelWrapper}>
+                                    <span>Head</span>
+                                    <Input
+                                        type="radio"
+                                        name="hit"
+                                        id="hit_1"
+                                        onChange={() => {
+                                            setUserHitName('head')
+                                            setIsHitChecked(true)
+                                        }}
+                                        checked={userHitName === 'head'}
+                                    />
+                                </label>
+                                <label htmlFor="" className={styles.labelWrapper}>
+                                    <span>Chest</span>
+                                    <Input
+                                        type="radio"
+                                        name="hit"
+                                        id="hit_2"
+                                        onChange={() => {
+                                            setUserHitName('chest')
+                                            setIsHitChecked(true)
+                                        }}
+                                        checked={userHitName === 'chest'}
+                                    />
+                                </label>
+                                <label htmlFor="" className={styles.labelWrapper}>
+                                    <span>Legs</span>
+                                    <Input
+                                        type="radio"
+                                        name="hit"
+                                        id="hit_3"
+                                        onChange={() => {
+                                            setUserHitName('legs')
+                                            setIsHitChecked(true)
+                                        }}
+                                        checked={userHitName === 'legs'}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                        <div className={styles.blocks}>
+                            <h2>Блок</h2>
+                            <div className={styles.blocksWrapper}>
+                                <label htmlFor="" className={styles.labelWrapper}>
+                                    <span>Head</span>
+                                    <Input
+                                        type="radio"
+                                        name="block"
+                                        id="block_1"
+                                        onChange={() => {
+                                            setUserBlockName('head');
+                                            setIsBlockChecked(true);
+                                        }}
+                                        checked={userBlockName === 'head'}
+                                    />
+                                </label>
+                                <label htmlFor="" className={styles.labelWrapper}>
+                                    <span>Chest</span>
+                                    <Input
+                                        type="radio"
+                                        name="block"
+                                        id="block_2"
+                                        onChange={() => {
+                                            setUserBlockName('chest');
+                                            setIsBlockChecked(true);
+                                        }}
+                                        checked={userBlockName === 'chest'}
+                                    />
+                                </label>
+                                <label htmlFor="" className={styles.labelWrapper}>
+                                    <span>Legs</span>
+                                    <Input
+                                        type="radio"
+                                        name="block"
+                                        id="block_3"
+                                        onChange={() => {
+                                            setUserBlockName('legs');
+                                            setIsBlockChecked(true);
+                                        }}
+                                        checked={userBlockName === 'legs' && isBlockChecked}
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.btnWrapper}>
+                        <Button color="warning" onClick={damageHandler}>
+                            Вперед!
+                        </Button>
+                    </div>
+                </Alert>
+                <Alert color="secondary" className={styles.computerBlock}>
                     <div>Name: Computer</div>
                     <Progress
                         min="0"
@@ -247,40 +249,35 @@ const FightPage = () => {
                         width="150"
                         className={styles.computerAvatar}
                     />
-                </div>
+                </Alert>
             </div>
 
-            <Button
-                color="warning"
-                outline
-            >
-                warning
-            </Button>
+            <Alert color="secondary" className={styles.fightLog}>
+                <h2>Часы показывали &nbsp; {getCurrentTime()} &nbsp; когда комп и игрок бросили друг-другу вызов</h2>
+                {isFightStarted && (
+                    <>
+                        {successUserBlock ?
+                            <div>{successUserBlockText}</div> :
+                            <div>User пытался что-то сказать, но в это время Комп влепил мощнейший удар в &nbsp;
+                                <strong>
+                                    {computerHitName} {!successUserBlock && <span>-</span>}
+                                    {computerDamage} <span>{`[${currUserHp}/${userHp}]`}</span>
+                                </strong>
+                            </div>
+                        }
+                        {successCompBlock ?
+                            <div>{successCompBlockText}</div> :
+                            <div>Comp засмотрелся и в это время небритый User влепил удар в &nbsp;
+                                <strong>
+                                    {hitToRender} {!successCompBlock && <span>-</span>}
+                                    {userDamage} <span>{`[${currComputerHp}/${computerHp}]`}</span>
+                                </strong>
+                            </div>
+                        }
+                    </>
+                )}
 
-            {isFightStarted && (
-                <div className={styles.fightLog}>
-                    <h2>Часы показывали <DynamicClock /> когда комп и игрок бросили друг-другу вызов</h2>
-                    {successUserBlock ?
-                        <div>{successUserBlockText}</div> :
-                        <div>User пытался что-то сказать, но в это время Комп влепил мощнейший удар в &nbsp;
-                            <strong>
-                                {computerHitName} {!successUserBlock && <span>-</span>}
-                                {computerDamage} <span>{`[${currUserHp}/${userHp}]`}</span>
-                            </strong>
-                        </div>
-                    }
-                    {successCompBlock ?
-                        <div>{successCompBlockText}</div> :
-                        <div>Comp засмотрелся и в это время небритый User влепил удар в &nbsp;
-                            <strong>
-                                {hitToRender} {!successCompBlock && <span>-</span>}
-                                {userDamage} <span>{`[${currComputerHp}/${computerHp}]`}</span>
-                            </strong>
-                        </div>
-                    }
-
-                </div>
-            )}
+            </Alert>
         </div>
     );
 };
