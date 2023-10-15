@@ -4,7 +4,7 @@ export const barColorHandler = (currentHp: number) => {
     return currentHp < 300 ? "danger" : (currentHp < 600 ? "warning" : "success")
 }
 
-export const getCurrentTime = () => {
+const getCurrentTime = () => {
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
@@ -12,6 +12,9 @@ export const getCurrentTime = () => {
 
     return `${hours}:${minutes}:${seconds}`;
 };
+
+export const currentTime = getCurrentTime();
+
 
 export const generateRandomBlockOrHit = () => {
     const hitsList = ['head', 'chest', 'legs']

@@ -1,9 +1,9 @@
 "use client"
 import {useCallback, useState} from "react";
-import styles from './styles.module.css'
+import styles from './styles.module.scss'
 import dynamic from "next/dynamic";
 import {Alert, Button, Input, Progress} from "reactstrap";
-import {barColorHandler, generateRandomBlockOrHit, getCurrentTime} from "@/app/helpers/heplres";
+import {barColorHandler, generateRandomBlockOrHit, currentTime} from "@/app/helpers/heplres";
 import Image from "next/image";
 import playerImg from '../../public/img/imageBK1.jpeg'
 import computerImg from '../../public/img/imageBK2.jpeg'
@@ -140,7 +140,7 @@ const FightPage = () => {
                         <div className={styles.hits}>
                             <h2>Удар</h2>
                             <div className={styles.hitsWrapper}>
-                                <label htmlFor="" className={styles.labelWrapper}>
+                                <label htmlFor="hit_1" className={styles.labelWrapper}>
                                     <span>Head</span>
                                     <Input
                                         type="radio"
@@ -153,7 +153,7 @@ const FightPage = () => {
                                         checked={userHitName === 'head'}
                                     />
                                 </label>
-                                <label htmlFor="" className={styles.labelWrapper}>
+                                <label htmlFor="hit_2" className={styles.labelWrapper}>
                                     <span>Chest</span>
                                     <Input
                                         type="radio"
@@ -166,7 +166,7 @@ const FightPage = () => {
                                         checked={userHitName === 'chest'}
                                     />
                                 </label>
-                                <label htmlFor="" className={styles.labelWrapper}>
+                                <label htmlFor="hit_3" className={styles.labelWrapper}>
                                     <span>Legs</span>
                                     <Input
                                         type="radio"
@@ -184,7 +184,7 @@ const FightPage = () => {
                         <div className={styles.blocks}>
                             <h2>Блок</h2>
                             <div className={styles.blocksWrapper}>
-                                <label htmlFor="" className={styles.labelWrapper}>
+                                <label htmlFor="block_1" className={styles.labelWrapper}>
                                     <span>Head</span>
                                     <Input
                                         type="radio"
@@ -197,7 +197,7 @@ const FightPage = () => {
                                         checked={userBlockName === 'head'}
                                     />
                                 </label>
-                                <label htmlFor="" className={styles.labelWrapper}>
+                                <label htmlFor="block_2" className={styles.labelWrapper}>
                                     <span>Chest</span>
                                     <Input
                                         type="radio"
@@ -210,7 +210,7 @@ const FightPage = () => {
                                         checked={userBlockName === 'chest'}
                                     />
                                 </label>
-                                <label htmlFor="" className={styles.labelWrapper}>
+                                <label htmlFor="block_3" className={styles.labelWrapper}>
                                     <span>Legs</span>
                                     <Input
                                         type="radio"
@@ -253,9 +253,9 @@ const FightPage = () => {
             </div>
 
             <Alert color="secondary" className={styles.fightLog}>
-                <h2>Часы показывали &nbsp; {getCurrentTime()} &nbsp; когда комп и игрок бросили друг-другу вызов</h2>
+                <h2>Часы показывали &nbsp; {currentTime} &nbsp; когда комп и игрок бросили друг-другу вызов</h2>
                 {isFightStarted && (
-                    <>
+                    <div>
                         {successUserBlock ?
                             <div>{successUserBlockText}</div> :
                             <div>User пытался что-то сказать, но в это время Комп влепил мощнейший удар в &nbsp;
@@ -274,7 +274,7 @@ const FightPage = () => {
                                 </strong>
                             </div>
                         }
-                    </>
+                    </div>
                 )}
 
             </Alert>
