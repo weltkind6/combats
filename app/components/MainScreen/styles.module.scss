@@ -1,0 +1,12 @@
+.wrapper {
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+
+  .input {
+    width: 499px;
+    margin-left: 50px;
+  }
+}

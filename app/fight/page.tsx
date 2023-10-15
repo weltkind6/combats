@@ -1,16 +1,13 @@
 "use client"
 import {useCallback, useState} from "react";
-import styles from './styles.module.scss'
-import dynamic from "next/dynamic";
 import {Alert, Button, Input, Progress} from "reactstrap";
-import {barColorHandler, generateRandomBlockOrHit, currentTime} from "@/app/helpers/heplres";
+import {barColorHandler, generateRandomBlockOrHit, currentTime, randomCompName} from "@/app/helpers/heplres";
 import Image from "next/image";
+import Link from "next/link";
 import playerImg from '../../public/img/imageBK1.jpeg'
 import computerImg from '../../public/img/imageBK2.jpeg'
+import styles from './styles.module.scss'
 
-const DynamicClock = dynamic(() => import("../components/Time/Time"), {
-    ssr: false,
-});
 const FightPage = () => {
 
     // Пользователь
@@ -71,7 +68,9 @@ const FightPage = () => {
             // Проверка смог ли User заблокировать удар ИИ
             if (userBlockName === getRandomCompHit) {
                 console.log('User blocked successfully!')
-                setSuccessUserBlockText(`Комп пытался провести удар но наглый User заблокировал удар в ${userBlockName}`)
+                setSuccessUserBlockText(`
+                ${randomCompName} 
+                пытался провести удар но наглый User заблокировал удар в ${userBlockName}`)
                 setSuccessUserBlock(true)
                 setUserHitName('');
                 setUserBlockName('');
@@ -136,6 +135,13 @@ const FightPage = () => {
                     />
                 </Alert>
                 <Alert color="secondary" className={styles.fightPanel}>
+                    <Button
+                        color="primary"
+                        size="sm"
+                    >
+                        <Link href={{pathname: "/"}} style={{color: "#000000", textDecoration: "none"}}>На
+                            главную</Link>
+                    </Button>
                     <div className={styles.panel}>
                         <div className={styles.hits}>
                             <h2>Удар</h2>
@@ -233,7 +239,7 @@ const FightPage = () => {
                     </div>
                 </Alert>
                 <Alert color="secondary" className={styles.computerBlock}>
-                    <div>Name: Computer</div>
+                    <div>Name: {randomCompName}</div>
                     <Progress
                         min="0"
                         max="1000"
@@ -253,12 +259,15 @@ const FightPage = () => {
             </div>
 
             <Alert color="secondary" className={styles.fightLog}>
-                <h2>Часы показывали &nbsp; {currentTime} &nbsp; когда комп и игрок бросили друг-другу вызов</h2>
+                <h2>Часы показывали &nbsp; {currentTime} &nbsp; когда
+                    <span className={styles.compName}>{randomCompName}</span>
+                    и <span className={styles.userName}>Игрок</span> бросили друг-другу вызов</h2>
                 {isFightStarted && (
                     <div>
                         {successUserBlock ?
                             <div>{successUserBlockText}</div> :
-                            <div>User пытался что-то сказать, но в это время Комп влепил мощнейший удар в &nbsp;
+                            <div><span className={styles.userName}>Игрок</span> пытался что-то сказать, но в это время <span
+                                className={styles.compName}>{randomCompName}</span> влепил мощнейший удар в &nbsp;
                                 <strong>
                                     {computerHitName} {!successUserBlock && <span>-</span>}
                                     {computerDamage} <span>{`[${currUserHp}/${userHp}]`}</span>
@@ -267,7 +276,8 @@ const FightPage = () => {
                         }
                         {successCompBlock ?
                             <div>{successCompBlockText}</div> :
-                            <div>Comp засмотрелся и в это время небритый User влепил удар в &nbsp;
+                            <div><span className={styles.compName}>{randomCompName}</span> засмотрелся и в это время
+                                небритый <span className={styles.userName}>Игрок</span> влепил удар в &nbsp;
                                 <strong>
                                     {hitToRender} {!successCompBlock && <span>-</span>}
                                     {userDamage} <span>{`[${currComputerHp}/${computerHp}]`}</span>

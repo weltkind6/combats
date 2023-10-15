@@ -6,6 +6,16 @@
   align-items: center;
 }
 
+.compName {
+  margin: 0 10px;
+  background-color: tomato;
+}
+
+.userName {
+  margin: 0 10px;
+  background-color: lightgreen;
+}
+
 .container {
   display: flex;
 }

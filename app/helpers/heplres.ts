@@ -12,7 +12,6 @@ const getCurrentTime = () => {
 
     return `${hours}:${minutes}:${seconds}`;
 };
-
 export const currentTime = getCurrentTime();
 
 
@@ -23,10 +22,11 @@ export const generateRandomBlockOrHit = () => {
     return hitsList[randomIndex]
 }
 
-export const generateRandomCompName = () => {
+const generateRandomCompName = () => {
     const compNames = computerNames
     const randomIndex = Math.floor(Math.random() * compNames.length)
 
     return compNames[randomIndex]
 }
+export const randomCompName = generateRandomCompName()
 
