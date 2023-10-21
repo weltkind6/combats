@@ -16,7 +16,7 @@ export const currentTime = getCurrentTime();
 
 
 export const generateRandomBlockOrHit = () => {
-    const hitsList = ['head', 'chest', 'legs']
+    const hitsList = ['голову', 'грудь', 'ноги']
     const randomIndex = Math.floor(Math.random() * hitsList.length)
 
     return hitsList[randomIndex]
