@@ -9,7 +9,6 @@ import computerImg from '../../public/img/imageBK2.jpeg'
 import styles from './styles.module.scss'
 
 const FightPage = () => {
-
     // Пользователь
     const [userHp, setUserHp] = useState<number>(1000);
     const [currUserHp, setCurrUserHp] = useState<number>(1000);
@@ -147,42 +146,42 @@ const FightPage = () => {
                             <h2>Удар</h2>
                             <div className={styles.hitsWrapper}>
                                 <label htmlFor="hit_1" className={styles.labelWrapper}>
-                                    <span>Head</span>
+                                    <span>в голову</span>
                                     <Input
                                         type="radio"
                                         name="hit"
                                         id="hit_1"
                                         onChange={() => {
-                                            setUserHitName('head')
+                                            setUserHitName('голову')
                                             setIsHitChecked(true)
                                         }}
-                                        checked={userHitName === 'head'}
+                                        checked={userHitName === 'голову'}
                                     />
                                 </label>
                                 <label htmlFor="hit_2" className={styles.labelWrapper}>
-                                    <span>Chest</span>
+                                    <span>в грудь</span>
                                     <Input
                                         type="radio"
                                         name="hit"
                                         id="hit_2"
                                         onChange={() => {
-                                            setUserHitName('chest')
+                                            setUserHitName('грудь')
                                             setIsHitChecked(true)
                                         }}
-                                        checked={userHitName === 'chest'}
+                                        checked={userHitName === 'грудь'}
                                     />
                                 </label>
                                 <label htmlFor="hit_3" className={styles.labelWrapper}>
-                                    <span>Legs</span>
+                                    <span>в ноги</span>
                                     <Input
                                         type="radio"
                                         name="hit"
                                         id="hit_3"
                                         onChange={() => {
-                                            setUserHitName('legs')
+                                            setUserHitName('ноги')
                                             setIsHitChecked(true)
                                         }}
-                                        checked={userHitName === 'legs'}
+                                        checked={userHitName === 'ноги'}
                                     />
                                 </label>
                             </div>
@@ -191,42 +190,42 @@ const FightPage = () => {
                             <h2>Блок</h2>
                             <div className={styles.blocksWrapper}>
                                 <label htmlFor="block_1" className={styles.labelWrapper}>
-                                    <span>Head</span>
+                                    <span>головы</span>
                                     <Input
                                         type="radio"
                                         name="block"
                                         id="block_1"
                                         onChange={() => {
-                                            setUserBlockName('head');
+                                            setUserBlockName('голову');
                                             setIsBlockChecked(true);
                                         }}
-                                        checked={userBlockName === 'head'}
+                                        checked={userBlockName === 'голову'}
                                     />
                                 </label>
                                 <label htmlFor="block_2" className={styles.labelWrapper}>
-                                    <span>Chest</span>
+                                    <span>груди</span>
                                     <Input
                                         type="radio"
                                         name="block"
                                         id="block_2"
                                         onChange={() => {
-                                            setUserBlockName('chest');
+                                            setUserBlockName('грудь');
                                             setIsBlockChecked(true);
                                         }}
-                                        checked={userBlockName === 'chest'}
+                                        checked={userBlockName === 'грудь'}
                                     />
                                 </label>
                                 <label htmlFor="block_3" className={styles.labelWrapper}>
-                                    <span>Legs</span>
+                                    <span>ног</span>
                                     <Input
                                         type="radio"
-                                        name="block"
+                                        name="block"я
                                         id="block_3"
                                         onChange={() => {
-                                            setUserBlockName('legs');
+                                            setUserBlockName('ноги');
                                             setIsBlockChecked(true);
                                         }}
-                                        checked={userBlockName === 'legs' && isBlockChecked}
+                                        checked={userBlockName === 'ноги' && isBlockChecked}
                                     />
                                 </label>
                             </div>
